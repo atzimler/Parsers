@@ -15,7 +15,7 @@ namespace ATZ.Parsers
 
         public int CurrentPosition { get; private set; } = -2;
         public char CurrentCharacter { get; private set; }
-        public int LineNumber { get; private set; } = 0;
+        public int LineNumber { get; private set; }
 
         public Source([NotNull] TextReader textReader)
         {
