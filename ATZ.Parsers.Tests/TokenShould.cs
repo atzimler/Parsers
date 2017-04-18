@@ -120,6 +120,7 @@ namespace ATZ.Parsers.Tests
         public void ProvideAbilityToDefineComplexTokens()
         {
             var numbers = ReadAllNumbers("12345;123;42").ToList();
+            // ReSharper disable once PossibleNullReferenceException => ReadAllNumbers is [ItemNotNull] but there are bugs in the R# reasoning engine. (Problem on 2017.1.1)
             numbers.Select(t => t.Value).Should().BeEquivalentTo(12345, 123, 42);
         }
     }

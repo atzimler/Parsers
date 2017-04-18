@@ -54,7 +54,8 @@ namespace ATZ.Parsers.Tests
             // ReSharper disable once ObjectCreationAsStatement => We are testing the constructor.
             // ReSharper disable once AssignNullToNotNullAttribute => We are testing that the constructor correctly throws an exception for receiving null parameter.
             var ex = Assert.Throws<ArgumentNullException>(() => new Source(null));
-            ex.Should().NotBeNull();
+            Assert.IsNotNull(ex);
+
             ex.ParamName.Should().Be("textReader");
         }
 

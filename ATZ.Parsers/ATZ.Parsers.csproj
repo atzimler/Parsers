@@ -52,11 +52,5 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="..\packages\FluentAssertions.4.19.2\lib\net45\FluentAssertions.ExternalAnnotations.xml">
-      <Link>FluentAssertions.ExternalAnnotations.xml</Link>
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
