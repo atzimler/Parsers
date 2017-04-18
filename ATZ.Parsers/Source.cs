@@ -4,19 +4,44 @@ using JetBrains.Annotations;
 
 namespace ATZ.Parsers
 {
+    /// <summary>
+    /// Representation of a source to process.
+    /// </summary>
     public class Source
     {
+        /// <summary>
+        /// Character representing the line ends.
+        /// </summary>
         public const char Eol = '\n';
+
+        /// <summary>
+        /// Character representing the file end.
+        /// </summary>
         public const char Eof = (char)0;
 
         [NotNull]
         private readonly TextReader _textReader;
         private string _line;
 
+        /// <summary>
+        /// Current position on the currently processed line.
+        /// </summary>
         public int CurrentPosition { get; private set; } = -2;
+
+        /// <summary>
+        /// Current character in the processed source.
+        /// </summary>
         public char CurrentCharacter { get; private set; }
+
+        /// <summary>
+        /// Current line position in the processed file.
+        /// </summary>
         public int LineNumber { get; private set; }
 
+        /// <summary>
+        /// Constructs a Source object.
+        /// </summary>
+        /// <param name="textReader">Input stream to read the input from.</param>
         public Source([NotNull] TextReader textReader)
         {
             _textReader = textReader ?? throw new ArgumentNullException(nameof(textReader));
@@ -62,12 +87,19 @@ namespace ATZ.Parsers
             }
         }
 
+        /// <summary>
+        /// Step the source to the next character.
+        /// </summary>
         public void NextCharacter()
         {
             IncrementCurrentPosition();
             ReadCurrentCharacter();
         }
 
+        /// <summary>
+        /// Peek the next character in the source without moving the current position.
+        /// </summary>
+        /// <returns></returns>
         public char PeekCharacter()
         {
             if (_line == null)
