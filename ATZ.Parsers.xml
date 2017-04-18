@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project name="ATZ.Parsers" default="help">
+  <description>Build file for ATZ.Parsers library.</description>
+
+  <property name="project.name" value="Parsers" />
+  <property name="build.targetframeworks" value="NET45,NET452" />
+  <include buildfile="../NAnt/ATZ.Build.xml" />
+</project>
