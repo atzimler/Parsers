@@ -1,4 +1,4 @@
-namespace WritingCompilersAndInterpreters
+namespace ATZ.Parsers
 {
     public interface ITokenType
     {

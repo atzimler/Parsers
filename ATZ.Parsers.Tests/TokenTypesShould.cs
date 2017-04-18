@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using WritingCompilersAndInterpreters;
 
 namespace ATZ.Parsers.Tests
 {
