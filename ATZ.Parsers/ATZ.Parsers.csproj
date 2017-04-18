@@ -53,6 +53,7 @@
     <Compile Include="TokenType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ATZ.Parsers.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
