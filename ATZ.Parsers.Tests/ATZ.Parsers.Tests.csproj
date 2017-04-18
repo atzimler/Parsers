@@ -52,6 +52,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyVersion.cs">
+      <Link>AssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="NumberReadingToken.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SourceShould.cs" />
