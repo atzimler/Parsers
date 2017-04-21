@@ -101,11 +101,7 @@ namespace ATZ.Parsers
                 throw new ArgumentNullException(nameof(characters));
             }
 
-            while (characters.Contains(Source.CurrentCharacter) && Source.CurrentCharacter != Source.Eol &&
-                   Source.CurrentCharacter != Source.Eof)
-            {
-                Source.NextCharacter();
-            }
+            Discard(characters.Contains);
         }
 
         /// <summary>
