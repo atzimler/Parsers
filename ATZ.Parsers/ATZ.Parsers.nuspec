@@ -15,8 +15,14 @@
     </dependencies>
 
     <releaseNotes>
-      1.0:
-      - Initial NuGet Packaging.
+1.1:
+- Token.Discard(char[])
+- Token.Discard(Func&lt;char, bool&gt;)
+- Token.Extract(char[])
+- Token.Extract(Func&lt;char, bool&gt;)
+      
+1.0:
+- Initial NuGet Packaging.
     </releaseNotes>
 
     <copyright>Copyright 2017</copyright>
