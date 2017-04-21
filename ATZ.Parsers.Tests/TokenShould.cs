@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using FluentAssertions;
 using JetBrains.Annotations;
 using NUnit.Framework;
@@ -143,6 +144,36 @@ namespace ATZ.Parsers.Tests
                 var s = new Source(sr);
                 var t = new WhiteSpaceSkippingToken(s);
                 t.Text.Should().Be("X");
+            }
+        }
+
+        [Test]
+        public void ThrowExceptionWhenDiscardIsCalledWithNullParameter()
+        {
+            using (var sr = new StringReader(""))
+            {
+                var s = new Source(sr);
+                var t = new ApiOpeningToken(s);
+                char[] characters = null;
+                // ReSharper disable once ExpressionIsAlwaysNull => That is the whole point of this test.
+                var ex = Assert.Throws<ArgumentNullException>(() => t.Discard(characters));
+                Assert.NotNull(ex);
+                ex.ParamName.Should().Be("characters");
+            }
+        }
+
+        [Test]
+        public void ThrowExceptionWhenDiscardIsCalledByFunctionWithNullParameter()
+        {
+            using (var sr = new StringReader(""))
+            {
+                var s = new Source(sr);
+                var t = new ApiOpeningToken(s);
+                Func<char, bool> characters = null;
+                // ReSharper disable once ExpressionIsAlwaysNull => That is the whole point of this test.
+                var ex = Assert.Throws<ArgumentNullException>(() => t.Discard(characters));
+                Assert.NotNull(ex);
+                ex.ParamName.Should().Be("characters");
             }
         }
     }

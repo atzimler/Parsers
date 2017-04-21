@@ -96,6 +96,11 @@ namespace ATZ.Parsers
         /// <param name="characters">The characters that need to be discarded.</param>
         protected void Discard([NotNull] char[] characters)
         {
+            if (characters == null)
+            {
+                throw new ArgumentNullException(nameof(characters));
+            }
+
             while (characters.Contains(Source.CurrentCharacter) && Source.CurrentCharacter != Source.Eol &&
                    Source.CurrentCharacter != Source.Eof)
             {
@@ -109,6 +114,11 @@ namespace ATZ.Parsers
         /// <param name="characters">Function describing the characteristics of the characters to be discarded.</param>
         protected void Discard([NotNull] Func<char, bool> characters)
         {
+            if (characters == null)
+            {
+                throw new ArgumentNullException(nameof(characters));
+            }
+
             while (characters(Source.CurrentCharacter) && Source.CurrentCharacter != Source.Eol &&
                    Source.CurrentCharacter != Source.Eof)
             {
