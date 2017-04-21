@@ -175,5 +175,58 @@ namespace ATZ.Parsers.Tests
                 ex.ParamName.Should().Be("characters");
             }
         }
+
+        [Test]
+        public void BeAbleToReadASetOfCharactersByFunction()
+        {
+            using (var sr = new StringReader("abbacdef"))
+            {
+                var s = new Source(sr);
+                var t = new AbcToken(s);
+                t.Text.Should().Be("abbac");
+            }
+        }
+
+        [Test]
+        public void BeAbleToReadASetOfCharacters()
+        {
+            using (var sr = new StringReader("abbacdef"))
+            {
+                var s = new Source(sr);
+                var t = new AbcToken2(s);
+                t.Text.Should().Be("abbac");
+            }
+        }
+
+        [Test]
+        public void ThrowExceptionWhenExtractIsCalledWithNullParameter()
+        {
+            using (var sr = new StringReader(""))
+            {
+                var s = new Source(sr);
+                var t = new ApiOpeningToken(s);
+                char[] characters = null;
+                // ReSharper disable once ExpressionIsAlwaysNull => That is the whole point of this test.
+                var ex = Assert.Throws<ArgumentNullException>(() => t.Extract(characters));
+                Assert.NotNull(ex);
+                ex.ParamName.Should().Be("characters");
+            }
+        }
+
+        [Test]
+        public void ThrowExceptionWhenExtractIsCalledByFunctionWithNullParameter()
+        {
+            using (var sr = new StringReader(""))
+            {
+                var s = new Source(sr);
+                var t = new ApiOpeningToken(s);
+                Func<char, bool> characters = null;
+                // ReSharper disable once ExpressionIsAlwaysNull => That is the whole point of this test.
+                var ex = Assert.Throws<ArgumentNullException>(() => t.Extract(characters));
+                Assert.NotNull(ex);
+                ex.ParamName.Should().Be("characters");
+            }
+        }
+
     }
 }

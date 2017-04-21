@@ -20,5 +20,17 @@ namespace ATZ.Parsers.Tests
             // ReSharper disable once AssignNullToNotNullAttribute => We want to be able to directly address the base function with any parameters for testing only.
             base.Discard(characters);
         }
+
+        public new void Extract(char[] characters)
+        {
+            // ReSharper disable once AssignNullToNotNullAttribute => We want to be able to directly address the base function with any parameters for testing only.
+            base.Extract(characters);
+        }
+
+        public new void Extract(Func<char, bool> characters)
+        {
+            // ReSharper disable once AssignNullToNotNullAttribute => We want to be able to directly address the base function with any parameters for testing only.
+            base.Extract(characters);
+        }
     }
 }

@@ -1,6 +1,7 @@
+using JetBrains.Annotations;
 using System;
 using System.Linq;
-using JetBrains.Annotations;
+using System.Text;
 
 namespace ATZ.Parsers
 {
@@ -79,28 +80,32 @@ namespace ATZ.Parsers
             Extract();
         }
 
-        /// <summary>
-        /// Extracts the token from the source.
-        /// </summary>
-        protected virtual void Extract()
+        private void StoreAndAdvance([NotNull] Func<char, bool> characters, [NotNull] Action<char> store)
         {
-            Text = Source.CurrentCharacter.ToString();
-            Value = null;
+            while (characters(Source.CurrentCharacter) && Source.CurrentCharacter != Source.Eol &&
+                   Source.CurrentCharacter != Source.Eof)
+            {
+                store(Source.CurrentCharacter);
+                Source.NextCharacter();
+            }
+        }
 
-            Source.NextCharacter();
+        private void VerifyCharactersIsNotNull(object characters)
+        {
+            if (characters == null)
+            {
+                throw new ArgumentNullException(nameof(characters));
+            }
         }
 
         /// <summary>
         /// Discard characters from the source until a character is found that is not contained in the characters array.
         /// </summary>
         /// <param name="characters">The characters that need to be discarded.</param>
+        /// <exception cref="ArgumentNullException">characters is null.</exception>
         protected void Discard([NotNull] char[] characters)
         {
-            if (characters == null)
-            {
-                throw new ArgumentNullException(nameof(characters));
-            }
-
+            VerifyCharactersIsNotNull(characters);
             Discard(characters.Contains);
         }
 
@@ -108,18 +113,50 @@ namespace ATZ.Parsers
         /// Discard characters from the source until a character is found that is not matching the characters function.
         /// </summary>
         /// <param name="characters">Function describing the characteristics of the characters to be discarded.</param>
+        /// <exception cref="ArgumentNullException">characters is null.</exception>
         protected void Discard([NotNull] Func<char, bool> characters)
         {
-            if (characters == null)
-            {
-                throw new ArgumentNullException(nameof(characters));
-            }
+            VerifyCharactersIsNotNull(characters);
+            StoreAndAdvance(characters, c => { });
+        }
 
-            while (characters(Source.CurrentCharacter) && Source.CurrentCharacter != Source.Eol &&
-                   Source.CurrentCharacter != Source.Eof)
-            {
-                Source.NextCharacter();
-            }
+        /// <summary>
+        /// Extracts the token from the source.
+        /// </summary>
+        /// <remarks>
+        /// This default implementation extracts one character from the source.
+        /// </remarks>
+        protected virtual void Extract()
+        {
+            Text = Source.CurrentCharacter.ToString();
+
+            Source.NextCharacter();
+        }
+
+        /// <summary>
+        /// Extracts the token from the source.
+        /// </summary>
+        /// <param name="characters">Array of characters allowed in the token.</param>
+        /// <exception cref="ArgumentNullException">characters is null.</exception>
+        protected void Extract([NotNull] char[] characters)
+        {
+            VerifyCharactersIsNotNull(characters);
+            Extract(characters.Contains);
+        }
+
+        /// <summary>
+        /// Extracts the token from the source.
+        /// </summary>
+        /// <param name="characters">Function describing the characters allowed in the token.</param>
+        /// <exception cref="ArgumentNullException">characters is null.</exception>
+        protected void Extract([NotNull] Func<char, bool> characters)
+        {
+            VerifyCharactersIsNotNull(characters);
+
+            var sb = new StringBuilder();
+            StoreAndAdvance(characters, c => sb.Append(c));
+
+            Text = sb.ToString();
         }
     }
 }

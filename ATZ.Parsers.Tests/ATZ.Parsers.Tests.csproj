@@ -66,6 +66,8 @@
     <Compile Include="..\AssemblyVersion.cs">
       <Link>AssemblyVersion.cs</Link>
     </Compile>
+    <Compile Include="AbcToken.cs" />
+    <Compile Include="AbcToken2.cs" />
     <Compile Include="ApiOpeningToken.cs" />
     <Compile Include="NumberReadingToken.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
