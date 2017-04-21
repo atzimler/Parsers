@@ -123,5 +123,27 @@ namespace ATZ.Parsers.Tests
             // ReSharper disable once PossibleNullReferenceException => ReadAllNumbers is [ItemNotNull] but there are bugs in the R# reasoning engine. (Problem on 2017.1.1)
             numbers.Select(t => t.Value).Should().BeEquivalentTo(12345, 123, 42);
         }
+
+        [Test]
+        public void BeAbleToDiscardCharacters()
+        {
+            using (var sr = new StringReader("  X"))
+            {
+                var s = new Source(sr);
+                var t = new SpaceSkippingToken(s);
+                t.Text.Should().Be("X");
+            }
+        }
+
+        [Test]
+        public void BeAbleToDiscardCharactersByFunction()
+        {
+            using (var sr = new StringReader(" \tX"))
+            {
+                var s = new Source(sr);
+                var t = new WhiteSpaceSkippingToken(s);
+                t.Text.Should().Be("X");
+            }
+        }
     }
 }

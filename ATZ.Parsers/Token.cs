@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using JetBrains.Annotations;
 
 namespace ATZ.Parsers
@@ -87,6 +88,32 @@ namespace ATZ.Parsers
             Value = null;
 
             Source.NextCharacter();
+        }
+
+        /// <summary>
+        /// Discard characters from the source until a character is found that is not contained in the characters array.
+        /// </summary>
+        /// <param name="characters">The characters that need to be discarded.</param>
+        protected void Discard([NotNull] char[] characters)
+        {
+            while (characters.Contains(Source.CurrentCharacter) && Source.CurrentCharacter != Source.Eol &&
+                   Source.CurrentCharacter != Source.Eof)
+            {
+                Source.NextCharacter();
+            }
+        }
+
+        /// <summary>
+        /// Discard characters from the source until a character is found that is not matching the characters function.
+        /// </summary>
+        /// <param name="characters">Function describing the characteristics of the characters to be discarded.</param>
+        protected void Discard([NotNull] Func<char, bool> characters)
+        {
+            while (characters(Source.CurrentCharacter) && Source.CurrentCharacter != Source.Eol &&
+                   Source.CurrentCharacter != Source.Eof)
+            {
+                Source.NextCharacter();
+            }
         }
     }
 }
